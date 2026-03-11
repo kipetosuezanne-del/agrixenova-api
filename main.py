@@ -521,3 +521,4 @@ async def predict(file: UploadFile = File(...)):
 
     except Exception as e:
         return {"status": "error", "message": str(e)}
+    
