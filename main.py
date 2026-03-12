@@ -20,22 +20,22 @@ app.add_middleware(
 # Download model and class names from Google Drive
 os.makedirs("model", exist_ok=True)
 
-if not os.path.exists("model/best_agrixenova_model_v4.keras"):
+if not os.path.exists("model/best_agrixenova_model.keras"):
     print("📥 Downloading model from Google Drive...")
-    gdown.download("https://drive.google.com/uc?id=1UFa-Ef2PuOkhZUvuOJox7hGCa3-KyKaw", "model/best_agrixenova_model_v4.keras", quiet=False, fuzzy=True)
+    gdown.download("https://drive.google.com/uc?id=1W4_viKlxshh_HJPFh-FG8FmocHXHgPcY", "model/best_agrixenova_model.keras", quiet=False, fuzzy=True)
 
-if not os.path.exists("model/class_names_v4.json"):
+if not os.path.exists("model/class_names.json"):
     print("📥 Downloading class names...")
-    gdown.download("https://drive.google.com/uc?id=1L35pmqL_KzgvLfg8g-P_LJvXahRIdCx_", "model/class_names_v4.json", quiet=False, fuzzy=True)
+    gdown.download("https://drive.google.com/uc?id=1ky9jukxZSE9WgU9QYF_C-Y0NU49sPRWi", "model/class_names.json", quiet=False, fuzzy=True)
 
 print("🌱 Loading AgriXenova model...")
-model = tf.keras.models.load_model("model/best_agrixenova_model_v4.keras")
-with open("model/class_names_v4.json", "r") as f:
+model = tf.keras.models.load_model("model/best_agrixenova_model.keras")
+with open("model/class_names.json", "r") as f:
     class_names = json.load(f)
 print(f"✅ Model loaded! {len(class_names)} diseases ready!")
 
 # ============================================================
-# TREATMENT DATABASE — All 59 diseases
+# TREATMENT DATABASE — All diseases
 # ============================================================
 TREATMENTS = {
     # TOMATO
@@ -223,131 +223,6 @@ TREATMENTS = {
         "prevention": "Prune annually. Scan weekly for early disease detection."
     },
 
-    # MANGO
-    "Mango___Anthracnose": {
-        "disease": "Mango Anthracnose",
-        "severity": "Severe",
-        "organic": "Prune infected branches. Spray neem oil every 7 days during flowering.",
-        "chemical": "Apply Mancozeb or Copper Oxychloride before and after flowering.",
-        "prevention": "Prune for good airflow. Avoid overhead irrigation. Remove fallen leaves."
-    },
-    "Mango___Bacterial Canker": {
-        "disease": "Mango Bacterial Canker",
-        "severity": "Severe",
-        "organic": "Prune infected branches. Apply copper-based spray immediately.",
-        "chemical": "Spray Copper Oxychloride or Streptomycin sulfate every 15 days.",
-        "prevention": "Use disease-free planting material. Disinfect pruning tools. Avoid injuries."
-    },
-    "Mango___Cutting Weevil": {
-        "disease": "Mango Cutting Weevil",
-        "severity": "Moderate",
-        "organic": "Collect and destroy fallen twigs. Apply neem oil spray on new shoots.",
-        "chemical": "Spray Chlorpyrifos or Dimethoate insecticide on new shoots.",
-        "prevention": "Remove and destroy infested twigs immediately. Keep orchard clean."
-    },
-    "Mango___Die Back": {
-        "disease": "Mango Die Back",
-        "severity": "Severe",
-        "organic": "Prune 15cm below infected area. Apply Bordeaux paste on cut ends.",
-        "chemical": "Spray Copper Oxychloride or Carbendazim on affected branches.",
-        "prevention": "Avoid injuries to bark. Maintain good nutrition. Remove dead wood promptly."
-    },
-    "Mango___Gall Midge": {
-        "disease": "Mango Gall Midge",
-        "severity": "Moderate",
-        "organic": "Remove and destroy infected flowers and shoots. Apply neem oil spray.",
-        "chemical": "Apply Dimethoate or Malathion insecticide at bud burst stage.",
-        "prevention": "Collect and destroy fallen infested material. Monitor during flowering."
-    },
-    "Mango___Healthy": {
-        "disease": "Healthy",
-        "severity": "None",
-        "organic": "Your mango tree is healthy! 🥭 Keep monitoring weekly.",
-        "chemical": "No treatment needed!",
-        "prevention": "Scan weekly to catch any disease early."
-    },
-    "Mango___Powdery Mildew": {
-        "disease": "Mango Powdery Mildew",
-        "severity": "Moderate",
-        "organic": "Spray baking soda solution (1 tbsp per liter) every 7 days.",
-        "chemical": "Apply Wettable Sulphur or Triadimefon fungicide every 10 days.",
-        "prevention": "Ensure good air circulation. Avoid excessive nitrogen fertilizer."
-    },
-    "Mango___Sooty Mould": {
-        "disease": "Mango Sooty Mould",
-        "severity": "Mild",
-        "organic": "Wash leaves with mild soap solution. Control insects with neem oil.",
-        "chemical": "Apply Copper Oxychloride after controlling insect pests.",
-        "prevention": "Control aphids and scale insects which cause honeydew. Prune for airflow."
-    },
-
-    # SUGARCANE
-    "Sugarcane___Healthy": {
-        "disease": "Healthy",
-        "severity": "None",
-        "organic": "Your sugarcane is healthy! 🌾 Keep monitoring weekly.",
-        "chemical": "No treatment needed!",
-        "prevention": "Scan weekly to catch any disease early."
-    },
-    "Sugarcane___Mosaic": {
-        "disease": "Sugarcane Mosaic Virus",
-        "severity": "Severe",
-        "organic": "Remove and destroy infected plants. Control aphids with neem oil spray.",
-        "chemical": "No cure — remove infected plants. Control aphid vectors with insecticide.",
-        "prevention": "Use disease-free planting material. Control aphids. Remove volunteer plants."
-    },
-    "Sugarcane___RedRot": {
-        "disease": "Sugarcane Red Rot",
-        "severity": "Severe",
-        "organic": "Remove and destroy infected stalks immediately. Treat seeds before planting.",
-        "chemical": "Soak seed pieces in Carbendazim solution for 30 minutes before planting.",
-        "prevention": "Use disease-free planting material. Improve field drainage."
-    },
-    "Sugarcane___Rust": {
-        "disease": "Sugarcane Rust",
-        "severity": "Moderate",
-        "organic": "Remove infected leaves. Spray neem oil every 7 days.",
-        "chemical": "Apply Propiconazole or Mancozeb fungicide every 14 days.",
-        "prevention": "Plant resistant varieties. Avoid excessive nitrogen fertilizer."
-    },
-    "Sugarcane___Yellow": {
-        "disease": "Sugarcane Yellow Leaf Disease",
-        "severity": "Moderate",
-        "organic": "Remove infected leaves. Control aphid vectors with neem oil.",
-        "chemical": "Control aphids with Imidacloprid. No direct chemical cure.",
-        "prevention": "Use healthy planting material. Control aphid populations early."
-    },
-
-    # WATERMELON
-    "watermelon___anthracnose": {
-        "disease": "Watermelon Anthracnose",
-        "severity": "Severe",
-        "organic": "Remove infected vines. Spray neem oil solution. Ensure good drainage.",
-        "chemical": "Apply Mancozeb or Copper Oxychloride fungicide every 10 days.",
-        "prevention": "Use disease-resistant seeds. Avoid overhead irrigation. Rotate crops."
-    },
-    "watermelon___downy_mildew": {
-        "disease": "Watermelon Downy Mildew",
-        "severity": "Moderate",
-        "organic": "Spray baking soda solution (1 tbsp per liter water). Remove infected leaves.",
-        "chemical": "Apply Metalaxyl or Ridomil fungicide immediately.",
-        "prevention": "Plant in well-ventilated areas. Water in the morning only."
-    },
-    "watermelon___mosaic_virus": {
-        "disease": "Watermelon Mosaic Virus",
-        "severity": "Severe",
-        "organic": "Remove and destroy infected plants immediately. Control aphids with neem oil.",
-        "chemical": "No cure — remove infected plants. Use insecticide to kill aphid carriers.",
-        "prevention": "Use virus-resistant varieties. Control aphids. Remove weeds around farm."
-    },
-    "watermelon___healthy": {
-        "disease": "Healthy",
-        "severity": "None",
-        "organic": "Your watermelon is perfectly healthy! 🍉 Great job farmer!",
-        "chemical": "No treatment needed!",
-        "prevention": "Scan weekly to catch any disease early."
-    },
-
     # PEPPER
     "Pepper,_bell___Bacterial_spot": {
         "disease": "Pepper Bacterial Spot",
@@ -473,7 +348,7 @@ async def predict(file: UploadFile = File(...)):
     try:
         contents = await file.read()
         img = Image.open(io.BytesIO(contents)).convert("RGB")
-        img = img.resize((224, 224))
+        img = img.resize((300, 300))
         img_array = np.array(img) / 255.0
         img_array = np.expand_dims(img_array, axis=0)
 
